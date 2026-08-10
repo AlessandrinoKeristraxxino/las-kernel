@@ -5,8 +5,10 @@
 
 use core::panic::PanicInfo;
 
+#[derive(Copy, Clone)]
+#[repr(u8)]
 enum Colors {
-    White = 0x0f
+    White = 0x0f,
 }
 
 #[no_mangle]
@@ -15,7 +17,7 @@ pub extern "C" fn _start() -> ! {
 
     unsafe {
         vga_buffer.offset(0).write_volatile(b'H');
-        vga_buffer.offset(1).write_volatile(0x0f);
+        vga_buffer.offset(1).write_volatile(Colors::White as u8);
     }
 
     loop {}
