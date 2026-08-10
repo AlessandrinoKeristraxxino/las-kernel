@@ -9,7 +9,7 @@ use core::panic::PanicInfo;
 use ffi::MultibootInfo;
 
 #[no_mangle]
-pub extern "C" fn _start() -> ! {
+pub extern "C" fn _start() -> ! { //!!PENSO SIA QUESTO CHE DEVE ESSERE CHIAMATO kernel_main!!
     unsafe {
         ffi::vga_init();
         ffi::keyboard_init();

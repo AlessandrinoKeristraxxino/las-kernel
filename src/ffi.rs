@@ -4,6 +4,7 @@ use core::ffi::{c_char, c_int, c_uint, c_void};
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
+
 pub struct MultibootInfo {
     pub flags: u32,
     pub mem_upper: u32,
