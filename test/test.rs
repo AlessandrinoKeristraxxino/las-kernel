@@ -1,3 +1,6 @@
 // crate/test.rs
 
-fn main() {}
+#[cfg(test)]
+mod test {
+    
+}

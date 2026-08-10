@@ -4,6 +4,7 @@
 #![no_main]
 
 mod ffi;
+mod rust_drivers;
 
 use core::panic::PanicInfo;
 use ffi::MultibootInfo;
