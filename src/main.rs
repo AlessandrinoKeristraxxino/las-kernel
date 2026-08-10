@@ -9,6 +9,11 @@ use core::panic::PanicInfo;
 pub extern "C" fn _start() -> ! {
     let vga_buffer = 0xb8000 as *mut u8;
 
+    unsafe {
+        vga_buffer.offset(0).write_volatile(b'H');
+        vga_buffer.offset(1).write_volatile(0x0f);
+    }
+
     loop {}
 }
 
