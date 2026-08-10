@@ -5,6 +5,10 @@
 
 use core::panic::PanicInfo;
 
+enum Colors {
+    White = 0x0f
+}
+
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     let vga_buffer = 0xb8000 as *mut u8;
