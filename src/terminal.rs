@@ -1,5 +1,6 @@
 // crate/src/terminal.rs
 
+use crate::ffi::{vga_write, vga_set_color, vga_clear, vga_putchar};
 use alloc::string::String;
 use alloc::vec::Vec;
 
@@ -32,7 +33,7 @@ impl Terminal {
     pub fn new() -> Self {
         Terminal {
             buffer: String::new(),
-            prompt: "LampScriptOS@las-os: ~$ ",
+            prompt: "AlessandroNapoli@las-os >> ",
         }
     }
 
@@ -41,8 +42,16 @@ impl Terminal {
     }
 
     pub fn handle_key(&mut self, key: char) {
-            match key {'\n' => {
-                self.exe
+        match key {
+            '\n' => {
+                self.execute_command();
+                self.buffer.clear();
+                self.print_prompt();
+            },
+            '\x08' => {
+                if !self.buffer.is_empty() {
+                    self.buffer.pop();
+                }
             },
             c => {
                 self.buffer.push(c);
@@ -51,10 +60,30 @@ impl Terminal {
     }
 
     fn execute_command(&mut self) {
+        let input = self.buffer.trim();
+        if input.is_empty() {
+            return;
+        }
 
+        match input {
+            "help" =>   {
+                //show the commands list
+            },
+            "clear" => {
+                //clear command
+            }
+            "about" => {
+                //abpit command
+            },
+            cmd => {
+                // unknown command
+            }
+        }
     }
 
     fn print_prompt(&self) {
-
+        unsafe {
+            
+        }    
     }
 }
