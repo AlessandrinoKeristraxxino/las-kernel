@@ -1,15 +1,19 @@
 // crate/src/main.rs
 
+//! Kernel entry point
+//! It gives to C the kernel_main() function
+
 #![no_std]
 #![no_main]
 
 mod ffi;
+mod multiboot;
 
 use core::panic::PanicInfo;
 use ffi::MultibootInfo;
 
 #[no_mangle]
-pub extern "C" fn kernel_main() -> ! { //!!PENSO SIA QUESTO CHE DEVE ESSERE CHIAMATO kernel_main!!
+pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
     unsafe {
         ffi::vga_init();
         ffi::keyboard_init();
@@ -24,6 +28,24 @@ pub extern "C" fn kernel_main() -> ! { //!!PENSO SIA QUESTO CHE DEVE ESSERE CHIA
     loop {}
 }
 
+#[repr(C)]
+struct TagHeader {
+    typ: u32,
+    size: u32,
+}
+
+/// Reads the `total_size` field of the Multiboot2 structure at the given address
+/// 
+/// # Safety
+/// The caller must ensure that `mb_info_addr` is a valid physical address
+/// returned by a Multiboot2-compliant bootloader, yet
+/// mapped and readable in the current address space.
+unsafe fn multiboot_total_size(mb_info_addr: u64) -> u32 {
+    let ptr = mb_info_addr as *const u32;
+    ptr.read_volatile()
+}
+
+/// Panic Handler when the program crash
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     if let Some(location) = info.location() {
