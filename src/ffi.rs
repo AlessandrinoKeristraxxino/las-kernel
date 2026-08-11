@@ -12,7 +12,7 @@ pub struct MultibootInfo {
 }
 
 /// C function declarations
-extern "C" {
+unsafe extern "C" {
     // VGA
     pub fn vga_init();
     pub fn vga_putchar(c: u8);
