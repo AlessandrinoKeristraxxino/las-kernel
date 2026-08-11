@@ -1,16 +1,22 @@
 // crate/src/main.rs
 
 //! Kernel entry point
-//! It gives to C the kernel_main() function
+//! It gives to crate/src/boot.c the kernel_main() function
 
 #![no_std]
 #![no_main]
 
+extern crate alloc;
+
 mod ffi;
-mod multiboot;
+mod memory;
 
 use core::panic::PanicInfo;
+use alloc::boxed::Box;
+use alloc::vec::Vec;
+
 use ffi::MultibootInfo;
+use memory::heap;
 
 #[no_mangle]
 pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
@@ -20,10 +26,18 @@ pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
         ffi::timer_init(100);
         ffi::irq_init();
         ffi::irq_enable();
+
+        /// DA QUI IN POI ALLOC FUNZIONA
+        /// SI PUò USARE L'HEAP
+        heap::init_heap();
     }
 
     let msg = "Kernel is working";
     unsafe { ffi::vga_write(msg.as_ptr() as *const _); }
+
+    /// PUò FUNZIONARE
+    let mut v = Vec::new();
+    v.push(42);
 
     loop {}
 }
