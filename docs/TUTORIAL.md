@@ -187,6 +187,7 @@ Punti da sviluppare:
 1. correzione: `self.heap_end = heap_start + heap_size;`
 2. aggiungere debug sulle dimensioni allocabili
 3. creare un'interfaccia per `init_heap()` e `alloc` in Rust
+4. migliorare la gestione dei caratteri infondo allo schermo in `vga_putchar()`
 
 ### B. Implementare la tastiera
 
