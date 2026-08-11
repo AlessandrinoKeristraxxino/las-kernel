@@ -19,6 +19,7 @@ unsafe extern "C" {
     pub fn vga_write(s: *const c_char);
     pub fn vga_set_color(fg: u8, bg: u8);
     pub fn vga_clear();
+    pub fn vga_scroll(io: book);
 
     // Keyboard
     pub fn keyboard_init();
