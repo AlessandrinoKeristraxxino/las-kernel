@@ -1,6 +1,6 @@
 fn main() {
     cc::Build::new()
-        .file("src/drivers/boot.c")
+        .file("src/boot.c")
         .file("src/drivers/vga.c")
         .file("src/drivers/keyboard.c")
         .file("src/drivers/timer.c")
