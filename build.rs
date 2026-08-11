@@ -13,4 +13,7 @@
 
 
 
-//questo lo ha fatto claudio penso vada bene
+//questo lo ha fatto claude penso vada bene
+//ma 'sto build.rs a cosa servirebbe?
+//anche perchè non abbiamo la libreria standard e quindi non si può usare println!()
+//ma l'ha fatto claude quindi...
