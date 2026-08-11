@@ -15,13 +15,13 @@ static size_t vga_row = 0; //y
 static size_t vga_col = 0; //x
 
 // inizializzazione dei colori (bianco e nero)
-static uint8_t vga_fg_color = 0x0F;
-static uint8_t vga_bg_color = 0x00;
+static uint8_t vga_fg_color = 0x0F; //15 in esadecimale
+static uint8_t vga_bg_color = 0x00; //0 in esadecimale
 
 void vga_init(void) {
 
     for (size_t i = 0; i < VGA_HEIGHT * VGA_WIDTH; i++) {
-        vga_buffer[i] = vga_bg_color | ' ';   // <- questo non funziona così i bit vanno messi in modo diverso ma non so come e non lo trovo da nessuna parte quindi aspetto claudio
+        vga_buffer[i] = (((uint16_t)vga_bg_color << 4) | vga_bg_color) << 8 | ' ';
     }
 
     vga_col = 0;
@@ -31,14 +31,22 @@ void vga_init(void) {
 
 void vga_putchar(uint8_t c) {
 
-    size_t idx = vga_row*VGA_WIDTH + vga_col;
-    vga_buffer[idx] = vga_fg_color | c; // <- questo non funziona così i bit vanno messi in modo diverso ma non so come e non lo trovo da nessuna parte quindi aspetto claudio
+    if (c == '\n') {
+        vga_col = 0;
+        if (vga_row < VGA_HEIGHT - 1) { //sempre gestione temporanea del fondoschermo
+            vga_row++;
+        }
+        return;
+    }
 
+    size_t idx = vga_row*VGA_WIDTH + vga_col;
+    vga_buffer[idx] = (((uint16_t)vga_bg_color << 4) | vga_fg_color) << 8| c; 
+    
     if (vga_col == VGA_WIDTH-1 && vga_row == VGA_HEIGHT-1) return; // per ora il cursore rimane bloccato nell'ultimo carattere
 
-    vga_col = vga_col + 1;
+    vga_col++;
     if (vga_col >= VGA_WIDTH) {
-        vga_row = vga_row + 1;
+        vga_row++;
         vga_col = 0;
     }
 }
