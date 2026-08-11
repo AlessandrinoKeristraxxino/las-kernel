@@ -10,6 +10,7 @@ extern crate alloc;
 
 mod ffi;
 mod memory;
+mod terminal;
 
 use core::panic::PanicInfo;
 use alloc::boxed::Box;
