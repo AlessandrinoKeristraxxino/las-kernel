@@ -1,3 +1,7 @@
+// crate/build.rs
+
+/// Used for the build
+/// Uitlity
 fn main() {
     cc::Build::new()
         .file("src/boot.c")
