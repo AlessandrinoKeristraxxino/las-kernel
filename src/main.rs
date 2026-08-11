@@ -21,15 +21,15 @@ use memory::heap;
 #[no_mangle]
 pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
     unsafe {
+        /// DA QUI IN POI ALLOC FUNZIONA
+        /// SI PUò USARE L'HEAP
+        heap::init_heap();
+        
         ffi::vga_init();
         ffi::keyboard_init();
         ffi::timer_init(100);
         ffi::irq_init();
         ffi::irq_enable();
-
-        /// DA QUI IN POI ALLOC FUNZIONA
-        /// SI PUò USARE L'HEAP
-        heap::init_heap();
     }
 
     let msg = "Kernel is working";
