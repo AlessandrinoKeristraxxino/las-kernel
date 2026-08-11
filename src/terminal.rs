@@ -1,10 +1,12 @@
 // crate/src/terminal.rs
 
 use crate::ffi::{vga_write, vga_set_color, vga_clear, vga_putchar};
+use alloc::format;
 use alloc::string::String;
 use alloc::vec::Vec;
 
 #[repr(u8)]
+#[allow(dead_code)]
 pub enum Color {
     Black = 0x0,
     Blue = 0x1,
@@ -33,28 +35,46 @@ impl Terminal {
     pub fn new() -> Self {
         Terminal {
             buffer: String::new(),
-            prompt: "AlessandroNapoli@las-os >> ",
+            prompt: "AlessandroNapoli@las-os >> \0",
         }
     }
 
     pub fn init(&mut self) {
+        unsafe {
+            vga_clear();
+        }
         self.print_prompt();
     }
 
     pub fn handle_key(&mut self, key: char) {
         match key {
             '\n' => {
+                unsafe {
+                    vga_write(b"\n\0".as_ptr() as *const _);
+                }
+
                 self.execute_command();
                 self.buffer.clear();
+
                 self.print_prompt();
             },
             '\x08' => {
+                // Backspace
                 if !self.buffer.is_empty() {
                     self.buffer.pop();
+                    
+                    unsafe {
+                        vga_putchar(b'\x08');
+                        vga_putchar(b' ');
+                        vga_putchar(b'\x08');
+                    }
                 }
             },
             c => {
                 self.buffer.push(c);
+                unsafe {
+                    vga_putchar(c as u8);
+                }
             }
         }
     }
@@ -66,24 +86,48 @@ impl Terminal {
         }
 
         match input {
-            "help" =>   {
-                //show the commands list
+            "help" => {
+                self.help();
             },
             "clear" => {
-                //clear command
-            }
+                unsafe {
+                    vga_clear();
+                }
+            },
             "about" => {
-                //abpit command
+                self.about();
             },
             cmd => {
-                // unknown command
+                let error_msg = format!("Command not found: {}\n\0", cmd);
+                unsafe {
+                    vga_write(error_msg.as_ptr() as *const _);
+                }
             }
+        }
+    }
+
+    fn help(&self) {
+        unsafe {
+            vga_write("Available commands:\n\0".as_ptr() as *const _);
+            vga_write("  help  - Show this help message\n\0".as_ptr() as *const _);
+            vga_write("  clear - Clear the screen\n\0".as_ptr() as *const _);
+            vga_write("  about - Show OS information\n\0".as_ptr() as *const _);
+        }
+    }
+
+    fn about(&self) {
+        unsafe {
+            vga_write("las-os Kernel v0.1.0\n\0".as_ptr() as *const _);
+            vga_write("Written in Rust & C\n\0".as_ptr() as *const _);
         }
     }
 
     fn print_prompt(&self) {
         unsafe {
-            
+            vga_set_color(Color::LightGreen as u8, Color::Black as u8);
+            vga_write(self.prompt.as_ptr() as *const _);
+
+            vga_set_color(Color::White as u8, Color::Black as u8);
         }    
     }
 }
