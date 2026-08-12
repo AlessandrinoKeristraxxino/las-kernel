@@ -5,6 +5,8 @@ use alloc::format;
 use alloc::string::String;
 use alloc::vec::Vec;
 
+pub static TERMINAL: Mutex<Option<Terminal>> = Mutex::new(None);
+
 #[repr(u8)]
 #[allow(dead_code)]
 pub enum Color {
@@ -29,6 +31,7 @@ pub enum Color {
 pub struct Terminal {
     buffer: String,
     prompt: &'static str,
+    history: Vec<String>,
 }
 
 impl Terminal {
@@ -36,6 +39,7 @@ impl Terminal {
         Terminal {
             buffer: String::new(),
             prompt: "AlessandroNapoli@las-os >> \0",
+            history: Vec::new(),
         }
     }
 
@@ -85,6 +89,7 @@ impl Terminal {
             return;
         }
 
+        self.history.push(String::from(input));
         match input {
             "help" => {
                 self.help();
@@ -131,3 +136,11 @@ impl Terminal {
         }    
     }
 }
+
+/// Global terminal initialization
+pub fn init_global_terminal() {
+    let mut term = Terminal::new();
+    term.init();
+    *TERMINAL.lock() = Some(term);
+}
+
