@@ -54,18 +54,14 @@ void vga_putchar(uint8_t c) {
 }
 
 void vga_write(const char *s) {
-
     for (size_t i = 0; s[i] != '\0'; i++) {
         vga_putchar((uint8_t)s[i]);
     }
-    
 }
 
 void vga_set_color(uint8_t fg, uint8_t bg) {
-
     vga_bg_color = bg;
     vga_fg_color = fg;
-    
 }
 
 void vga_clear() {
