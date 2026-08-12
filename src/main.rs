@@ -18,6 +18,7 @@ use alloc::vec::Vec;
 
 use ffi::MultibootInfo;
 use memory::heap;
+use crate::terminal::Terminal;
 
 #[no_mangle]
 pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
@@ -33,14 +34,24 @@ pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
         ffi::irq_enable();
     }
 
-    let msg = "Kernel is working";
-    unsafe { ffi::vga_write(msg.as_ptr() as *const _); }
+    let mut terminal = Terminal::new();
+    terminal.init();
 
-    /// PUò FUNZIONARE
-    let mut v = Vec::new();
-    v.push(42);
+    unsafe { ffi::irq_enable(); }
 
-    loop {}
+    loop {
+        unsafe {
+            while ffi::keyboard_haschar() != 0 {
+                let ascii_bye = ffi::keyboard_getchar();
+                terminal.handle_key(ascii_bye as char);
+            }
+        }
+
+        //istruzione per non far consumare tutta la cpu in un loop infinito
+        unsafe {
+            core::arch::x86_64::_mm_pause();
+        }
+    }
 }
 
 #[repr(C)]
