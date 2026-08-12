@@ -10,5 +10,11 @@
   ],
   "rust-analyzer.server.extraEnv": {
     "RUSTUP_TOOLCHAIN": "nightly"
+  },
+  "files.exclude": {
+    "**/*.rpyc": true,
+    "**/*.rpa": true,
+    "**/*.rpymc": true,
+    "**/cache/": true
   }
 }
