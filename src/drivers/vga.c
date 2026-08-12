@@ -26,7 +26,6 @@ void vga_init(void) {
 }
 
 void vga_putchar(uint8_t c) {
-    
     if (c == '\n') { // newline handle
         vga_col = 0;
         vga_row++;
@@ -65,7 +64,6 @@ void vga_set_color(uint8_t fg, uint8_t bg) {
 }
 
 void vga_clear() {
-    
     uint16_t *start = (uint16_t *)VGA_MEMORY;
     uint16_t *end = (uint16_t *)0xC0000;
     
@@ -82,7 +80,6 @@ void vga_clear() {
 }
 
 void vga_scroll(char uod) {
-
     uint16_t *min = (uint16_t *)(VGA_MEMORY + VGA_WIDTH * VGA_HEIGHT * 2);
     uint16_t *max = (uint16_t *)0xC0000 - VGA_HEIGHT * VGA_WIDTH;
     
@@ -96,8 +93,6 @@ void vga_scroll(char uod) {
 }
 
 static inline void vga_render() {
-
     for (size_t i = 0; i < VGA_HEIGHT * VGA_WIDTH; i++) vga_buffer[i] = vga_first_buffer[i];
-
 }
 
