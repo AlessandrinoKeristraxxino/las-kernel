@@ -17,15 +17,14 @@ static uint16_t *vga_first_buffer = (uint16_t *)(VGA_MEMORY + VGA_WIDTH*VGA_HEIG
 static size_t vga_row = 0; //y
 static size_t vga_col = 0; //x
 
-// inizializzazione dei colori (bianco e nero)
-static uint8_t vga_fg_color = 0x0F; //15 in esadecimale
-static uint8_t vga_bg_color = 0x00; //0 in esadecimale
+// inizializzazione dei colori (nero e bianco)
+static uint8_t vga_colors[] = {0x00, 0x0F}; // 0->bg 1->fg
 
 void vga_init(void) {
     vga_clear();
 }
 
-void vga_putchar(uint8_t c) {
+static void vga_putchar_color(uint8_t c, uint8_t *clrs) {
     if (c == '\n') { // newline handle
         vga_col = 0;
         vga_row++;
@@ -37,7 +36,7 @@ void vga_putchar(uint8_t c) {
     }
     
     size_t idx = vga_row*VGA_WIDTH + vga_col;
-    vga_first_buffer[idx] = (((uint16_t)vga_bg_color << 4) | vga_fg_color) << 8| c; 
+    vga_first_buffer[idx] = (((uint16_t)clrs[0] << 4) | clrs[1]) << 8| c; 
     
     vga_col++;
     if (vga_col >= VGA_WIDTH) {
@@ -52,15 +51,25 @@ void vga_putchar(uint8_t c) {
     vga_render();
 }
 
+inline void vga_putchar(uint8_t c) {
+    vga_putchar_color(c, vga_colors);
+}
+
 void vga_write(const char *s) {
     for (size_t i = 0; s[i] != '\0'; i++) {
         vga_putchar((uint8_t)s[i]);
     }
 }
 
+void vga_writec(const char *s, uint8_t *c) {
+    for (size_t i = 0; s[i] != '\0'; i++) {
+        vga_putchar_color((uint8_t)s[i], c);
+    }
+}
+
 void vga_set_color(uint8_t fg, uint8_t bg) {
-    vga_bg_color = bg;
-    vga_fg_color = fg;
+    vga_colors[0] = bg;
+    vga_colors[1] = fg;
 }
 
 void vga_clear() {
@@ -68,7 +77,7 @@ void vga_clear() {
     uint16_t *end = (uint16_t *)0xC0000;
     
     for (uint16_t *p = start; p < end; p++) {
-        *p = (((uint16_t)vga_bg_color << 4) | vga_fg_color) << 8 | ' ';
+        *p = (((uint16_t)vga_colors[0] << 4) | vga_colors[1]) << 8 | ' ';
     }
     
     // reset del fbuffer e del cursore
@@ -95,4 +104,6 @@ void vga_scroll(char uod) {
 static inline void vga_render() {
     for (size_t i = 0; i < VGA_HEIGHT * VGA_WIDTH; i++) vga_buffer[i] = vga_first_buffer[i];
 }
+
+
 

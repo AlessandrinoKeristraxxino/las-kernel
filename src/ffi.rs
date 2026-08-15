@@ -14,6 +14,10 @@ pub struct MultibootInfo {
 /// C function declarations
 unsafe extern "C" {
     // VGA
+
+    /* ho creato la funzione vga_writec per scrivere colorato 
+    prende come input oltre a s come write normale anche un array di due u8 di cui 
+    il primo rappresenta il bg e il secondo l'fg ma non so come aggiungerlo, se devi mettere const mettilo anche nel mio file*/
     pub fn vga_init();
     pub fn vga_putchar(c: u8);
     pub fn vga_write(s: *const c_char);
