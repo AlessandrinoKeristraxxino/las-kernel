@@ -14,7 +14,7 @@ pub struct MultibootInfo {
 /// C function declarations
 unsafe extern "C" {
     // VGA
-    pub fn vga_init();
+    pub fn vga_init();              
     pub fn vga_putchar(c: u8);
     pub fn vga_write(s: *const c_char);
     pub unsafe fn vga_writec(s: *const c_char, c: *const [u8; 2]);
@@ -24,8 +24,8 @@ unsafe extern "C" {
 
     // Keyboard
     pub fn keyboard_init();
-    pub fn keyboard_haschar() -> c_int;
-    pub fn keyboard_getchar() -> u8;
+    pub fn keyboard_getchar() -> u8; // return 0 se non ci sono input
+    // pub fn keyboard_haschar(c: *const c_char) -> u8;
 
     // Timer
     pub fn timer_init(frequency: u32);

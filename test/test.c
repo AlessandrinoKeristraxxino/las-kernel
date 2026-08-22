@@ -3,23 +3,10 @@
 
 int main() {
 
-    uint8_t u = 0b01110101;
-    if (u == 'u') printf("eh si %x\n", u & 'u');
-    printf("%x\n", 'u');
+    uint8_t a = 11, b = 2;
+    uint8_t *p = &a;
 
-
-    switch ('u' & 1) { // i char 'u' e 'd' sono uno "pari" e l'altro "dispari" grazie a questo funziona 
-    case 1:
-        // codice per su
-        break;
-    
-    case 0:
-        // codice per giù
-        break;
-
-    default:
-        break;
-    }
+    printf("%d, %d, %d\n", *p, *(p+1), *(&a+1));
 
     return 0;
 }

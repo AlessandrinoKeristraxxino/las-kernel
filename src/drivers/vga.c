@@ -47,7 +47,7 @@ static void vga_putchar_color(uint8_t c, uint8_t *clrs) {
     vga_render();
 }
 
-static inline void vga_render() {
+static inline void vga_render(void) {
     for (size_t i = 0; i < VGA_HEIGHT * VGA_WIDTH; i++) vga_buffer[i] = vga_first_buffer[i];
 }
 
@@ -65,7 +65,7 @@ void vga_write(const char *s) {
     }
 }
 
-void vga_writec(const char *s, uint8_t *c) {
+void vga_writec(const char *s, const uint8_t *c) {
     for (size_t i = 0; s[i] != '\0'; i++) {
         vga_putchar_color((uint8_t)s[i], c);
     }
@@ -76,7 +76,7 @@ void vga_set_color(uint8_t fg, uint8_t bg) {
     vga_colors[1] = fg;
 }
 
-void vga_clear() {
+void vga_clear(void) {
     uint16_t *start = (uint16_t *)VGA_MEMORY;
     uint16_t *end = (uint16_t *)0xC0000;
     
