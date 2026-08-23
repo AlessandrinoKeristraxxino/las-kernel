@@ -2,6 +2,20 @@
 
 #include <stdint.h>
 
-void timer_init(uint32_t freq) {}
+#define PIT_FREQUENCY 1193182
+#define PIT_CH0 0x40
+#define PIT_MODE 0x43
 
-uint64_t timer_get_ticks() {}
+static inline void outb(uint16_t port, uint8_t val) { // l'assembly per scrivere in un certo registro (port) il valore di val
+    asm volatile("outb %0, %1" : : "a"(val), "Nd"(port));
+}
+
+void timer_init(uint32_t freq) {
+    uint32_t div = PIT_FREQUENCY / freq;
+
+    outb(PIT_CH0, 0b00110110);
+
+    //da finire
+}
+
+uint64_t timer_get_ticks(void) {}

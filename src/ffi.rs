@@ -25,10 +25,10 @@ unsafe extern "C" {
     // Keyboard
     pub fn keyboard_init();
     pub fn keyboard_getchar() -> u8; // return 0 se non ci sono input
-    // pub fn keyboard_haschar(c: *const c_char) -> u8;
+    pub fn keyboard_haschar(c: *const c_char) -> u8; //teoricamente posso usare i bool quindi se vuoi puoi metterlo
 
     // Timer
-    pub fn timer_init(frequency: u32);
+    pub fn timer_init(frequency: u32); // min freq 20hz
     pub fn timer_get_ticks() -> u64;
 
     // IRQ

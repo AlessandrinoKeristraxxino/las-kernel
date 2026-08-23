@@ -1,9 +1,12 @@
 // crate/src/drivers/keyboard.c
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #define KEYBOARD_DATA 0x60
 #define KEYBOARD_STATUS 0x64
+
+static char layout[] = "en"; // "en", "it"
 
 static uint8_t inb(uint16_t port) {
     uint16_t ret;
@@ -26,4 +29,8 @@ uint8_t keyboard_getchar(void) { // questa ti returna lo scancode se facciamo tu
     return 0;
 }
 
-uint8_t keyboard_haschar(const char c) {return 0;}
+inline void keyboard_set_layout(char s[3]) {
+    for (int i; i < 2; i++) layout[i] = s[i];
+}
+
+bool keyboard_haschar(const char c) {return 0;}
