@@ -17,7 +17,7 @@ unsafe extern "C" {
     pub fn vga_init();              
     pub fn vga_putchar(c: u8);
     pub fn vga_write(s: *const c_char);
-    pub unsafe fn vga_writec(s: *const c_char, c: *const [u8; 2]);
+    pub fn vga_writec(s: *const c_char, c: *const [u8; 2]);
     pub fn vga_set_color(fg: u8, bg: u8);
     pub fn vga_clear();
     pub fn vga_scroll(uod: c_char);

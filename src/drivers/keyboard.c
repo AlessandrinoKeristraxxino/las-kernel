@@ -30,7 +30,7 @@ uint8_t keyboard_getchar(void) { // questa ti returna lo scancode se facciamo tu
 }
 
 inline void keyboard_set_layout(char s[3]) {
-    for (int i; i < 2; i++) layout[i] = s[i];
+    for (int i = 0; i < 2; i++) layout[i] = s[i];
 }
 
 bool keyboard_haschar(const char c) {return 0;}

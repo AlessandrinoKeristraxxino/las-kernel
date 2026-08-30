@@ -8,10 +8,11 @@ edition = "2021"
 [dependencies]
 x86_64 = "0.15.5"
 spin = "0.12.2"
-multiboot2 = "0.25.0"
+#multiboot2 = "0.25.0"
 
 [build-dependencies]
 cc = "1.0"
+nasm-rs = "0.2"
 
 [profile.dev]
 panic = "abort"
