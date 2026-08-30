@@ -34,3 +34,7 @@ inline void keyboard_set_layout(char s[3]) {
 }
 
 bool keyboard_haschar(const char c) {return 0;}
+
+void keyboard_interrupt_handler(void) {
+    //todo
+}
