@@ -31,7 +31,7 @@ irq0_stub:
     pop rax
 
     ; manda EOI al PIC
-    mov al. 0x20
+    mov al, 0x20
     out 0x20, al
 
     ; fine interrupt
@@ -67,7 +67,7 @@ irq1_stub:
     pop rax
 
     ; manda EOI al PIC
-    mov al. 0x20
+    mov al, 0x20
     out 0x20, al
 
     ; fine interrupt

@@ -75,8 +75,8 @@ void idt_init(void) { // inizializzazione dell'IDT
 
 void idt_set_gate(uint8_t idx, uint64_t handler) { // scrive l'indirizzo dell'handler (funzione interrupt)
     idt[idx].offset_low = handler & 0xFFFF;
-    idt[idx].offset_low = (handler >> 16) & 0xFFFF;
-    idt[idx].offset_low = (handler >> 32) & 0xFFFFFFFF;
+    idt[idx].offset_mid = (handler >> 16) & 0xFFFF;
+    idt[idx].offset_high = (handler >> 32) & 0xFFFFFFFF;
 }
 
 void idt_load(void) { // loada la tabella IDT
