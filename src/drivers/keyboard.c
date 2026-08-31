@@ -41,7 +41,7 @@ inline void keyboard_set_layout(KeyboardLayout layout) {
     current_layout = layout;
 }
 
-char scancode_to_ascii(uint8_t sc) {
+static char scancode_to_ascii(uint8_t sc) {
     static const char generic[] = {
     0,    27,  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
     0,    0,   '\b','\t','q', 'w', 'e', 'r', 't', 'y', 'u', 'i',
@@ -89,7 +89,7 @@ char scancode_to_ascii(uint8_t sc) {
     }
 }
 
-uint8_t keyboard_getchar(void) {
+char keyboard_getchar(void) {
     uint8_t sc = keyboard_getscncd();
     if (sc == 0) return 0;
     return scancode_to_ascii(sc);

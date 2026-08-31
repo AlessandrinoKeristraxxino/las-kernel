@@ -20,7 +20,6 @@ pub struct MultibootInfo {
 
 /// C function declarations
 unsafe extern "C" {
-    KeyboardLayout;
 
     // VGA
     pub fn vga_init();              
@@ -35,7 +34,7 @@ unsafe extern "C" {
     pub fn keyboard_init();
     pub fn keyboard_getscncd() -> u8; // return 0 se non ci sono input ritorna lo scancode
     pub fn keyboard_haschar(c: *const c_char) -> u8; 
-    puf fn keyboard_set_layout(layout: KeyboardLayout);
+    pub fn keyboard_set_layout(layout: KeyboardLayout);
 
     // Timer
     pub fn timer_init(frequency: u32); // min freq 20hz
