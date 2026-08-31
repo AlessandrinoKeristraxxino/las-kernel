@@ -102,6 +102,9 @@ impl Terminal {
             "about" => {
                 self.about();
             },
+            "chkb" => {
+                self.chkb();
+            },
             cmd => {
                 let error_msg = format!("Command not found: {}\n\0", cmd);
                 unsafe {
@@ -117,6 +120,7 @@ impl Terminal {
             vga_write("  help  - Show this help message\n\0".as_ptr() as *const _);
             vga_write("  clear - Clear the screen\n\0".as_ptr() as *const _);
             vga_write("  about - Show OS information\n\0".as_ptr() as *const _);
+            vga_write("  chkb  - Change keyboard layout\n\0".as_ptr() as *const _);
         }
     }
 
@@ -125,6 +129,10 @@ impl Terminal {
             vga_write("las-os Kernel v0.1.0\n\0".as_ptr() as *const _);
             vga_write("Written in Rust & C\n\0".as_ptr() as *const _);
         }
+    }
+
+    fn chkb(&self) {
+
     }
 
     fn print_prompt(&self) {
