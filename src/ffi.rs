@@ -3,8 +3,15 @@
 use core::ffi::{c_char, c_int, c_uint, c_void};
 
 #[repr(C)]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum KeyboardLayout {
+    Generic = 0,
+    Uk = 1,
+    It = 2,
+}
 
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
 pub struct MultibootInfo {
     pub flags: u32,
     pub mem_upper: u32,
@@ -28,7 +35,7 @@ unsafe extern "C" {
     pub fn keyboard_init();
     pub fn keyboard_getscncd() -> u8; // return 0 se non ci sono input ritorna lo scancode
     pub fn keyboard_haschar(c: *const c_char) -> u8; 
-    puf fn keyboard_set_layout();
+    puf fn keyboard_set_layout(layout: KeyboardLayout);
 
     // Timer
     pub fn timer_init(frequency: u32); // min freq 20hz
