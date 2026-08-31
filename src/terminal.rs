@@ -1,9 +1,10 @@
 // crate/src/terminal.rs
 
-use crate::ffi::{vga_write, vga_set_color, vga_clear, vga_putchar};
+use crate::ffi::{self, vga_write, vga_set_color, vga_clear, vga_putchar, KeyboardLayout};
 use alloc::format;
 use alloc::string::String;
 use alloc::vec::Vec;
+use spin::Mutex;
 
 pub static TERMINAL: Mutex<Option<Terminal>> = Mutex::new(None);
 
@@ -32,6 +33,7 @@ pub struct Terminal {
     buffer: String,
     prompt: &'static str,
     history: Vec<String>,
+    waiting_for_layout: bool,
 }
 
 impl Terminal {
@@ -40,6 +42,7 @@ impl Terminal {
             buffer: String::new(),
             prompt: "AlessandroNapoli@las-os >> \0",
             history: Vec::new(),
+            waiting_for_layout: false,
         }
     }
 
@@ -51,6 +54,42 @@ impl Terminal {
     }
 
     pub fn handle_key(&mut self, key: char) {
+        // If waiting for keyboard layout selection, handle that first
+        if self.waiting_for_layout {
+            self.waiting_for_layout = false;
+            unsafe {
+                vga_putchar(key as u8);
+                vga_write(b"\n\0".as_ptr() as *const _);
+            }
+            match key {
+                '1' => {
+                    unsafe {
+                        ffi::keyboard_set_layout(KeyboardLayout::Generic);
+                        vga_write(b"Keyboard layout set to Generic\n\0".as_ptr() as *const _);
+                    }
+                },
+                '2' => {
+                    unsafe {
+                        ffi::keyboard_set_layout(KeyboardLayout::Uk);
+                        vga_write(b"Keyboard layout set to UK\n\0".as_ptr() as *const _);
+                    }
+                },
+                '3' => {
+                    unsafe {
+                        ffi::keyboard_set_layout(KeyboardLayout::It);
+                        vga_write(b"Keyboard layout set to IT\n\0".as_ptr() as *const _);
+                    }
+                },
+                _ => {
+                    unsafe {
+                        vga_write(b"Invalid choice. Layout unchanged.\n\0".as_ptr() as *const _);
+                    }
+                }
+            }
+            self.print_prompt();
+            return;
+        }
+
         match key {
             '\n' => {
                 unsafe {
@@ -131,8 +170,15 @@ impl Terminal {
         }
     }
 
-    fn chkb(&self) {
-
+    fn chkb(&mut self) {
+        unsafe {
+            vga_write(b"Select keyboard layout:\n\0".as_ptr() as *const _);
+            vga_write(b"  1 - Generic\n\0".as_ptr() as *const _);
+            vga_write(b"  2 - UK\n\0".as_ptr() as *const _);
+            vga_write(b"  3 - IT\n\0".as_ptr() as *const _);
+            vga_write(b"Choice: \0".as_ptr() as *const _);
+        }
+        self.waiting_for_layout = true;
     }
 
     fn print_prompt(&self) {

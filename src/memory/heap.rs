@@ -3,7 +3,6 @@
 use core::alloc::{GlobalAlloc, Layout};
 use core::ptr;
 use spin::Mutex;
-use x86_64::align_up;
 
 pub const HEAP_START: usize = 0x4444_4444_0000;
 pub const HEAP_SIZE: usize = 100 * 1024;
@@ -34,7 +33,7 @@ impl BumpAllocator {
 
     pub unsafe fn init(&mut self, heap_start: usize, heap_size: usize) {
         self.heap_start = heap_start;
-        self.heap_start + heap_size;
+        self.heap_end = self.heap_start + heap_size;
         self.next = heap_start;
     }
 }

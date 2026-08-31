@@ -13,18 +13,15 @@ mod memory;
 mod terminal;
 
 use core::panic::PanicInfo;
-use alloc::boxed::Box;
-use alloc::vec::Vec;
 
-use ffi::MultibootInfo;
 use memory::heap;
 use crate::terminal::Terminal;
 
 #[no_mangle]
 pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
     unsafe {
-        /// DA QUI IN POI ALLOC FUNZIONA
-        /// SI PUò USARE L'HEAP
+        // DA QUI IN POI ALLOC FUNZIONA
+        // SI PUò USARE L'HEAP
         heap::init_heap();
         
         ffi::vga_init();
@@ -43,7 +40,7 @@ pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
         unsafe {
             while ffi::keyboard_haschar() != 0 {
                 let ascii_bye = ffi::keyboard_getchar();
-                terminal.handle_key(ascii_bye as char);
+                terminal.handle_key(ascii_bye as u8 as char);
             }
         }
 

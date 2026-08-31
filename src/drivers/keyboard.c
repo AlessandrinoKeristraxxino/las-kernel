@@ -95,7 +95,7 @@ char keyboard_getchar(void) {
     return scancode_to_ascii(sc);
 }
 
-bool keyboard_haschar(const char c) {return 0;}
+bool keyboard_haschar(void) { return kb_head != kb_tail; }
 
 void keyboard_interrupt_handler(void) {
     kb_buffer[kb_head] = inb(KEYBOARD_DATA);
