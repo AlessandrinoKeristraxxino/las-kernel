@@ -3,10 +3,11 @@
 
 int main() {
 
-    uint8_t a = 11, b = 2;
-    uint8_t *p = &a;
+    uint8_t a = 0, b = 255;
 
-    printf("%d, %d, %d\n", *p, *(p+1), *(&a+1));
+    printf("%d, %d\n", a, b);
 
-    return 0;
+    b++;
+
+    printf("%d, %d\n", a, b);
 }

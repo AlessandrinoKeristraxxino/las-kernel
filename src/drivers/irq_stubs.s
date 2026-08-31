@@ -54,7 +54,7 @@ irq1_stub:
 
     call keyboard_interrupt_handler
 
-    ; reipristina i dati dei registri
+    ; ripristina i dati dei registri
     pop r11
     pop r10
     pop r9

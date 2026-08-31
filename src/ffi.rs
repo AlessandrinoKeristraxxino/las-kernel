@@ -24,7 +24,7 @@ unsafe extern "C" {
 
     // Keyboard
     pub fn keyboard_init();
-    pub fn keyboard_getchar() -> u8; // return 0 se non ci sono input
+    pub fn keyboard_getscncd() -> u8; // return 0 se non ci sono input ritorna lo scancode
     pub fn keyboard_haschar(c: *const c_char) -> u8; //teoricamente posso usare i bool quindi se vuoi puoi metterlo
 
     // Timer
