@@ -96,10 +96,12 @@ char keyboard_getchar(void) {
 }
 
 uint8_t keyboard_haschar() {
-    return kb_head == kb_tail;
+    return kb_head != kb_tail;
 }
 
 void keyboard_interrupt_handler(void) {
-    kb_buffer[kb_head] = inb(KEYBOARD_DATA);
+    uint8_t sc = inb(KEYBOARD_DATA);
+    if (sc & 0x80) return;       // in futuro da migliorare ma per ora questa è la gestione dei key-release
+    kb_buffer[kb_head] = sc;
     kb_head = (kb_head + 1) % 256;
 }
