@@ -3,8 +3,15 @@
 use core::ffi::{c_char, c_int, c_uint, c_void};
 
 #[repr(C)]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum KeyboardLayout {
+    Generic = 0,
+    Uk = 1,
+    It = 2,
+}
 
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
 pub struct MultibootInfo {
     pub flags: u32,
     pub mem_upper: u32,
@@ -13,19 +20,21 @@ pub struct MultibootInfo {
 
 /// C function declarations
 unsafe extern "C" {
+
     // VGA
     pub fn vga_init();              
     pub fn vga_putchar(c: u8);
     pub fn vga_write(s: *const c_char);
-    pub unsafe fn vga_writec(s: *const c_char, c: *const [u8; 2]);
+    pub fn vga_writec(s: *const c_char, c: *const [u8; 2]);
     pub fn vga_set_color(fg: u8, bg: u8);
     pub fn vga_clear();
     pub fn vga_scroll(uod: c_char);
 
     // Keyboard
     pub fn keyboard_init();
-    pub fn keyboard_getchar() -> u8; // return 0 se non ci sono input
-    pub fn keyboard_haschar(c: *const c_char) -> u8; //teoricamente posso usare i bool quindi se vuoi puoi metterlo
+    pub fn keyboard_getscncd() -> u8; // return 0 se non ci sono input ritorna lo scancode
+    pub fn keyboard_haschar(c: *const c_char) -> u8; 
+    pub fn keyboard_set_layout(layout: KeyboardLayout);
 
     // Timer
     pub fn timer_init(frequency: u32); // min freq 20hz

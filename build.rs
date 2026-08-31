@@ -3,6 +3,9 @@
 /// Used for the build
 /// Uitlity
 fn main() {
+    nasm_rs::compile_library("irq_stubs", &["src/drivers/irq_stubs.s"])
+        .expect("Failed to assemble irq_stubs.s");
+
     cc::Build::new()
         .file("src/boot.c")
         .file("src/drivers/vga.c")
