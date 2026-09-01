@@ -34,7 +34,7 @@ unsafe extern "C" {
     pub fn keyboard_init();
     pub fn keyboard_getscncd() -> u8; // return 0 se non ci sono input ritorna lo scancode
     pub fn keyboard_haschar() -> u8; 
-    pub fn keyboard_getchar() -> c_char;
+    pub fn keyboard_getchar() -> u8;
     pub fn keyboard_set_layout(layout: KeyboardLayout);
 
     // Timer
