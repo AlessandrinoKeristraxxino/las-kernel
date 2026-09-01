@@ -1,7 +1,6 @@
 // crate/src/drivers/keyboard.c
 
 #include <stdint.h>
-#include <stdbool.h>
 
 #define KEYBOARD_DATA 0x60
 #define KEYBOARD_STATUS 0x64
@@ -95,7 +94,6 @@ char keyboard_getchar(void) {
     return scancode_to_ascii(sc);
 }
 
-bool keyboard_haschar(void) { return kb_head != kb_tail; }
 uint8_t keyboard_haschar() {
     return kb_head != kb_tail;
 }

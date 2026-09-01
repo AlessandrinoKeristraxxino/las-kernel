@@ -1,4 +1,4 @@
-// crate/src/memory/mod.rs
+// crate/src/memory/heap.rs
 
 use core::alloc::{GlobalAlloc, Layout};
 use core::ptr;
