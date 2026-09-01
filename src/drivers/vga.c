@@ -20,7 +20,11 @@ static size_t vga_col = 0; //x
 // inizializzazione dei colori (nero e bianco)
 static uint8_t vga_colors[] = {0x00, 0x0F}; // 0->bg 1->fg
 
-static void vga_putchar_color(uint8_t c, uint8_t *clrs) {
+static void vga_render(void);
+static void vga_scroll(char uod);
+void vga_clear(void);
+
+static void vga_putchar_color(uint8_t c, const uint8_t *clrs) {
     if (c == '\n') { // newline handle
         vga_col = 0;
         vga_row++;
@@ -47,15 +51,15 @@ static void vga_putchar_color(uint8_t c, uint8_t *clrs) {
     vga_render();
 }
 
-static inline void vga_render(void) {
+static void vga_render(void) {
     for (size_t i = 0; i < VGA_HEIGHT * VGA_WIDTH; i++) vga_buffer[i] = vga_first_buffer[i];
 }
 
-inline void vga_init(void) {
+void vga_init(void) {
     vga_clear();
 }
 
-inline void vga_putchar(uint8_t c) {
+void vga_putchar(uint8_t c) {
     vga_putchar_color(c, vga_colors);
 }
 

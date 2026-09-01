@@ -28,9 +28,9 @@ typedef struct {
 
 static IDT_Entry idt[256];
 
-static uint8_t inb(uint16_t port) { // in pratica mette il dato che si trova al registro (port) nella variabile ret 
-    uint16_t ret;
-    asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port)); 
+static uint8_t inb(uint16_t port) {
+    uint8_t ret;
+    asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port));
     return ret;
 }
 
@@ -101,6 +101,6 @@ void irq_init() {
     idt_load();
 }
 
-inline void irq_enable() {asm volatile("sti");}
+void irq_enable(void) {asm volatile("sti");}
 
-inline void irq_disable() {asm volatile("cli");}
+void irq_disable(void) {asm volatile("cli");}

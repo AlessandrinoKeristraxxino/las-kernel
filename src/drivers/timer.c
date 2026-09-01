@@ -20,6 +20,6 @@ void timer_init(uint32_t freq) {
     outb(PIT_CH0, (div >> 8) & 0xFF);
 }
 
-inline uint64_t timer_get_ticks(void) {return ticks;}
+uint64_t timer_get_ticks(void) {return ticks;}
 
-inline void timer_interrupt_handler(void) {ticks++;}
+void timer_interrupt_handler(void) {ticks++;}

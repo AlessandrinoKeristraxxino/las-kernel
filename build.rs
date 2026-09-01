@@ -17,5 +17,6 @@ fn main() {
         .flag("-nostdlib")
         .compile("kernel_c");
     
+    println!("cargo:rustc-link-lib=static=irq_stubs");
     println!("cargo:rustc-link-arg=-Tlinker.ld");
 }

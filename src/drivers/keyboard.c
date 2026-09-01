@@ -16,8 +16,8 @@ typedef enum {
 static KeyboardLayout current_layout = LAYOUT_UK;
 
 static uint8_t inb(uint16_t port) {
-    uint16_t ret;
-    asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port)); // in pratica mette il dato che si trova al registro (port) nella variabile ret 
+    uint8_t ret;
+    asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port));
     return ret;
 }
 
@@ -36,7 +36,7 @@ uint8_t keyboard_getscncd(void) { // questa ti returna lo scancode se facciamo t
     return sc;
 }
 
-inline void keyboard_set_layout(KeyboardLayout layout) {
+void keyboard_set_layout(KeyboardLayout layout) {
     current_layout = layout;
 }
 
