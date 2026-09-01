@@ -94,7 +94,7 @@ DEFAULT_ENTRY=LasOS
 
 :LasOS
 PROTOCOL=limine
-KERNEL_PATH=boot():/boot/kernel
+KERNEL_PATH=/boot/kernel
 KERNEL_CMDLINE=quiet
 EOF
 }

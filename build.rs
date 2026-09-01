@@ -19,4 +19,6 @@ fn main() {
     
     println!("cargo:rustc-link-lib=static=irq_stubs");
     println!("cargo:rustc-link-arg=-Tlinker.ld");
+    println!("cargo:rustc-link-arg=-no-pie");
+    println!("cargo:rustc-link-arg=-static");
 }
