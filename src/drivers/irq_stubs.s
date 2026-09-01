@@ -2,6 +2,8 @@
 
 [GLOBAL irq0_stub]
 [GLOBAL irq1_stub]
+[EXTERN timer_interrupt_handler]
+[EXTERN keyboard_interrupt_handler]
 
 irq0_stub:
     ; salva registri
