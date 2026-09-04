@@ -7,6 +7,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ISO_ROOT_DIR="${ROOT_DIR}/iso_root"
 OUT_DIR="${ROOT_DIR}/out"
+LIMINE_DIR="${ROOT_DIR}/limine"
 KERNEL_BINARY="${ROOT_DIR}/target/x86_64-unknown-none/release/las-kernel"
 ISO_FILE="${OUT_DIR}/las-kernel.iso"
 
@@ -14,6 +15,7 @@ ISO_FILE="${OUT_DIR}/las-kernel.iso"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 ensure_sudo() {
@@ -71,12 +73,19 @@ ensure_tool() {
 configure_iso_root() {
     mkdir -p "${ISO_ROOT_DIR}/boot" "${ISO_ROOT_DIR}/EFI/BOOT" "${OUT_DIR}"
 
-    if [[ -d "${ISO_ROOT_DIR}/boot/limine" ]]; then
-        cp -f "${ISO_ROOT_DIR}/boot/limine/limine-bios-cd.bin" "${ISO_ROOT_DIR}/boot/"
-        cp -f "${ISO_ROOT_DIR}/boot/limine/limine-bios.sys" "${ISO_ROOT_DIR}/boot/"
-        cp -f "${ISO_ROOT_DIR}/boot/limine/limine-uefi-cd.bin" "${ISO_ROOT_DIR}/boot/"
+    # Copia i file Limine dal repo clonato
+    if [[ -d "${LIMINE_DIR}" ]]; then
+        cp -f "${LIMINE_DIR}/limine-bios-cd.bin" "${ISO_ROOT_DIR}/boot/limine/"
+        cp -f "${LIMINE_DIR}/limine-bios.sys" "${ISO_ROOT_DIR}/boot/limine/"
+        cp -f "${LIMINE_DIR}/limine-uefi-cd.bin" "${ISO_ROOT_DIR}/boot/limine/"
+        
+        # Copia BOOTX64.EFI solo se non esiste, non sovrascrivere
+        if [[ ! -f "${ISO_ROOT_DIR}/EFI/BOOT/BOOTX64.EFI" ]]; then
+            cp -f "${LIMINE_DIR}/BOOTX64.EFI" "${ISO_ROOT_DIR}/EFI/BOOT/"
+        fi
     fi
 
+    # Copia il kernel compilato
     if [[ -f "${KERNEL_BINARY}" ]]; then
         cp -f "${KERNEL_BINARY}" "${ISO_ROOT_DIR}/boot/kernel"
     else
@@ -84,17 +93,14 @@ configure_iso_root() {
         exit 1
     fi
 
-    if [[ -f "${ISO_ROOT_DIR}/boot/limine-uefi-cd.bin" ]]; then
-        cp -f "${ISO_ROOT_DIR}/boot/limine-uefi-cd.bin" "${ISO_ROOT_DIR}/EFI/BOOT/BOOTX64.EFI"
-    fi
-
+    # Genera limine.cfg con il percorso corretto
     cat > "${ISO_ROOT_DIR}/limine.cfg" <<'EOF'
 TIMEOUT=3
 DEFAULT_ENTRY=LasOS
 
 :LasOS
 PROTOCOL=limine
-KERNEL_PATH=/boot/kernel
+KERNEL_PATH=boot():/boot/kernel
 KERNEL_CMDLINE=quiet
 EOF
 }
@@ -109,16 +115,30 @@ build_iso() {
     fi
 
     echo ""
-    echo "[*] Creating bootable ISO image..."
+    echo -e "${BLUE}[*] Creating bootable ISO image...${NC}"
     xorriso -as mkisofs \
-        -b boot/limine-bios-cd.bin \
+        -b boot/limine/limine-bios-cd.bin \
         -no-emul-boot \
         -boot-load-size 4 \
         -boot-info-table \
-        --efi-boot boot/limine-uefi-cd.bin \
+        --efi-boot boot/limine/limine-uefi-cd.bin \
         -efi-boot-part --efi-boot-image --protective-msdos-label \
         -o "${ISO_FILE}" \
         "${ISO_ROOT_DIR}"
+
+    # QUESTO MANCAVA: installa il bootloader BIOS
+    if [[ -f "${LIMINE_DIR}/limine" ]]; then
+        echo -e "${BLUE}[*] Installing Limine bootloader...${NC}"
+        "${LIMINE_DIR}/limine" bios-install "${ISO_FILE}"
+        echo -e "${GREEN}✓ Limine bootloader installed${NC}"
+    elif [[ -f "${LIMINE_DIR}/limine.exe" ]]; then
+        echo -e "${BLUE}[*] Installing Limine bootloader (Windows)...${NC}"
+        "${LIMINE_DIR}/limine.exe" bios-install "${ISO_FILE}"
+        echo -e "${GREEN}✓ Limine bootloader installed${NC}"
+    else
+        echo -e "${YELLOW}⚠ Limine tool not found in ${LIMINE_DIR}${NC}"
+        echo "   The ISO may not boot correctly. Make sure 'limine' or 'limine.exe' is in ${LIMINE_DIR}"
+    fi
 
     echo -e "${GREEN}✓ ISO image created: ${ISO_FILE}${NC}"
 }
@@ -161,7 +181,7 @@ echo "[*] Building LAS Kernel..."
 echo "    Target: x86_64-unknown-none (bare metal)"
 echo ""
 
-if cargo build --target x86_64-unknown-none --release; then
+if cargo +nightly build --target x86_64-unknown-none --release; then
     echo ""
     echo -e "${GREEN}=== BUILD SUCCESSFUL ===${NC}"
     echo "    Kernel binary: ${KERNEL_BINARY}"
