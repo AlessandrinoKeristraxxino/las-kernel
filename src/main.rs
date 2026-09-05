@@ -51,7 +51,7 @@ pub extern "C" fn kernel_main(_multiboot_info_addr: u64) -> ! {
     }
 }
 
-#[repr(C)]
+// #[repr(C)]
 // struct TagHeader {
 //     typ: u32,
 //     size: u32,
