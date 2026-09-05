@@ -18,10 +18,10 @@ use memory::heap;
 use crate::terminal::Terminal;
 
 #[no_mangle]
-pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
+pub extern "C" fn kernel_main(_multiboot_info_addr: u64) -> ! {
     unsafe {
         // DA QUI IN POI ALLOC FUNZIONA
-        // SI PUò USARE L'HEAP
+        // SI PUÒ USARE L'HEAP
         heap::init_heap();
         
         ffi::vga_init();
@@ -52,21 +52,21 @@ pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
 }
 
 #[repr(C)]
-struct TagHeader {
-    typ: u32,
-    size: u32,
-}
+// struct TagHeader {
+//     typ: u32,
+//     size: u32,
+// }
 
-/// Reads the `total_size` field of the Multiboot2 structure at the given address
-/// 
-/// # Safety
-/// The caller must ensure that `mb_info_addr` is a valid physical address
-/// returned by a Multiboot2-compliant bootloader, yet
-/// mapped and readable in the current address space.
-unsafe fn multiboot_total_size(mb_info_addr: u64) -> u32 {
-    let ptr = mb_info_addr as *const u32;
-    ptr.read_volatile()
-}
+// /// Reads the `total_size` field of the Multiboot2 structure at the given address
+// /// 
+// /// # Safety
+// /// The caller must ensure that `mb_info_addr` is a valid physical address
+// /// returned by a Multiboot2-compliant bootloader, yet
+// /// mapped and readable in the current address space.
+// unsafe fn multiboot_total_size(mb_info_addr: u64) -> u32 {
+//     let ptr = mb_info_addr as *const u32;
+//     ptr.read_volatile()
+// }
 
 /// Panic Handler when the program crash
 #[panic_handler]

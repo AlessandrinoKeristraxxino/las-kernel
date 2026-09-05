@@ -72,6 +72,7 @@ ensure_tool() {
 
 configure_iso_root() {
     mkdir -p "${ISO_ROOT_DIR}/boot" "${ISO_ROOT_DIR}/EFI/BOOT" "${OUT_DIR}"
+    mkdir -p "${ISO_ROOT_DIR}/boot/limine"  # Crea la cartella se non esiste
 
     # Copia i file Limine dal repo clonato
     if [[ -d "${LIMINE_DIR}" ]]; then

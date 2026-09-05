@@ -19,28 +19,82 @@ DEFAULT_ENTRY=LasOS
 PROTOCOL=limine
 KERNEL_PATH=boot():/boot/kernel
 KERNEL_CMDLINE=quiet
-     Removed 309 files, 163.9MiB total
+     Removed 181 files, 107.5MiB total
    Compiling compiler_builtins v0.1.160 (/home/jacopo/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
    Compiling core v0.0.0 (/home/jacopo/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
    Compiling shlex v2.0.1
-   Compiling find-msvc-tools v0.1.11
-   Compiling rustversion v1.0.23
    Compiling const_fn v0.4.12
+   Compiling rustversion v1.0.23
+   Compiling find-msvc-tools v0.1.11
    Compiling nasm-rs v0.2.5
    Compiling cc v1.4.4
    Compiling las-kernel v0.1.0 (/home/jacopo/Documents/Programmi/las-kernel)
 warning: las-kernel@0.1.0: src/boot.c: In function 'kernel_entry':
-warning: las-kernel@0.1.0: src/boot.c:11:23: warning: writing 8 bytes into a region of size 1 [-Wstringop-overflow=]
-warning: las-kernel@0.1.0:    11 |         *(uint8_t *)p = 0;
-warning: las-kernel@0.1.0:       |         ~~~~~~~~~~~~~~^~~
-warning: las-kernel@0.1.0: src/boot.c:9:20: note: destination object '_bss_start' of size 1
-warning: las-kernel@0.1.0:     9 |     extern uint8_t _bss_start, _bss_end;
-warning: las-kernel@0.1.0:       |                    ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 8 bytes into a region of size 1 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 17 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 1 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 17 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 1 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 18 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 2 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 18 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 2 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 19 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 3 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 19 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 3 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 20 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 4 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 20 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 4 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 21 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 5 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 21 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 5 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 22 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 6 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 22 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 6 into destination object '_bss_start' of size 1
    Compiling alloc v0.0.0 (/home/jacopo/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc)
    Compiling scopeguard v1.2.0
-   Compiling bitflags v2.13.1
    Compiling volatile v0.4.6
    Compiling bit_field v0.10.3
+   Compiling bitflags v2.13.1
    Compiling lock_api v0.4.14
    Compiling x86_64 v0.15.5
    Compiling spin v0.12.2
@@ -61,6 +115,14 @@ warning: unused doc comment
    = help: use `//` for a plain comment
    = note: `#[warn(unused_doc_comments)]` (part of `#[warn(unused)]`) on by default
 
+error: the `repr(C)` attribute cannot be used on functions
+  --> src/main.rs:54:3
+   |
+54 | #[repr(C)]
+   |   ^^^^^^^
+   |
+   = help: the `repr(C)` attribute can only be applied to data types
+
 warning: unnecessary `unsafe` block
   --> src/main.rs:48:9
    |
@@ -69,101 +131,77 @@ warning: unnecessary `unsafe` block
    |
    = note: `#[warn(unused_unsafe)]` (part of `#[warn(unused)]`) on by default
 
-warning: unused variable: `multiboot_info_addr`
-  --> src/main.rs:21:31
-   |
-21 | pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
-   |                               ^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_multiboot_info_addr`
-   |
-   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
-
 warning: unused variable: `location`
   --> src/main.rs:74:17
    |
 74 |     if let Some(location) = info.location() {
    |                 ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_location`
-
-warning: struct `TagHeader` is never constructed
-  --> src/main.rs:55:8
    |
-55 | struct TagHeader {
-   |        ^^^^^^^^^
-   |
-   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
 
-warning: function `multiboot_total_size` is never used
-  --> src/main.rs:66:11
-   |
-66 | unsafe fn multiboot_total_size(mb_info_addr: u64) -> u32 {
-   |           ^^^^^^^^^^^^^^^^^^^^
-
-warning: struct `MultibootInfo` is never constructed
-  --> src/ffi.rs:15:12
-   |
-15 | pub struct MultibootInfo {
-   |            ^^^^^^^^^^^^^
-
-warning: function `vga_writec` is never used
-  --> src/ffi.rs:28:12
-   |
-28 |     pub fn vga_writec(s: *const c_char, c: *const [u8; 2]);
-   |            ^^^^^^^^^^
-
-warning: function `vga_scroll` is never used
-  --> src/ffi.rs:31:12
-   |
-31 |     pub fn vga_scroll(uod: c_char);
-   |            ^^^^^^^^^^
-
-warning: function `keyboard_getscncd` is never used
-  --> src/ffi.rs:35:12
-   |
-35 |     pub fn keyboard_getscncd() -> u8; // return 0 se non ci sono input ritorna lo scancode
-   |            ^^^^^^^^^^^^^^^^^
-
-warning: function `timer_get_ticks` is never used
-  --> src/ffi.rs:42:12
-   |
-42 |     pub fn timer_get_ticks() -> u64;
-   |            ^^^^^^^^^^^^^^^
-
-warning: function `irq_disable` is never used
-  --> src/ffi.rs:47:12
-   |
-47 |     pub fn irq_disable();
-   |            ^^^^^^^^^^^
-
-warning: static `TERMINAL` is never used
- --> src/terminal.rs:9:12
-  |
-9 | pub static TERMINAL: Mutex<Option<Terminal>> = Mutex::new(None);
-  |            ^^^^^^^^
-
-warning: function `init_global_terminal` is never used
-   --> src/terminal.rs:195:8
-    |
-195 | pub fn init_global_terminal() {
-    |        ^^^^^^^^^^^^^^^^^^^^
-
-warning: hiding a lifetime that's elided elsewhere is confusing
-  --> src/memory/heap.rs:46:17
-   |
-46 |     pub fn lock(&self) -> spin::MutexGuard<A> {
-   |                 ^^^^^     ^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
-   |                 |
-   |                 the lifetime is elided here
-   |
-   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
-   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
-help: use `'_` for type paths
-   |
-46 |     pub fn lock(&self) -> spin::MutexGuard<'_, A> {
-   |                                            +++
-
-warning: `las-kernel` (bin "las-kernel") generated 15 warnings (run `cargo fix --bin "las-kernel" -p las-kernel` to apply 3 suggestions)
-    Finished `release` profile [optimized] target(s) in 20.08s
-warning: the following packages contain code that will be rejected by a future version of Rust: core v0.0.0 (/home/jacopo/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
-note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+warning: `las-kernel` (bin "las-kernel") generated 3 warnings
+warning: las-kernel@0.1.0: src/boot.c: In function 'kernel_entry':
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 8 bytes into a region of size 1 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 17 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 1 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 17 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 1 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 18 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 2 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 18 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 2 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 19 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 3 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 19 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 3 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 20 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 4 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 20 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 4 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 21 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 5 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 21 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 5 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 22 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 6 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 22 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 6 into destination object '_bss_start' of size 1
+error: could not compile `las-kernel` (bin "las-kernel") due to 1 previous error; 3 warnings emitted
 === LAS Kernel Build System ===
 
 [*] Checking prerequisites...
@@ -178,12 +216,67 @@ info: component rust-std for target x86_64-unknown-none is up to date
     Target: x86_64-unknown-none (bare metal)
 
 warning: las-kernel@0.1.0: src/boot.c: In function 'kernel_entry':
-warning: las-kernel@0.1.0: src/boot.c:11:23: warning: writing 8 bytes into a region of size 1 [-Wstringop-overflow=]
-warning: las-kernel@0.1.0:    11 |         *(uint8_t *)p = 0;
-warning: las-kernel@0.1.0:       |         ~~~~~~~~~~~~~~^~~
-warning: las-kernel@0.1.0: src/boot.c:9:20: note: destination object '_bss_start' of size 1
-warning: las-kernel@0.1.0:     9 |     extern uint8_t _bss_start, _bss_end;
-warning: las-kernel@0.1.0:       |                    ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 8 bytes into a region of size 1 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 17 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 1 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 17 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 1 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 18 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 2 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 18 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 2 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 19 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 3 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 19 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 3 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 20 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 4 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 20 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 4 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 21 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 5 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 21 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 5 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 22 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 6 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 22 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 6 into destination object '_bss_start' of size 1
+   Compiling las-kernel v0.1.0 (/home/jacopo/Documents/Programmi/las-kernel)
 warning: unused doc comment
   --> src/ffi.rs:21:1
    |
@@ -201,6 +294,14 @@ warning: unused doc comment
    = help: use `//` for a plain comment
    = note: `#[warn(unused_doc_comments)]` (part of `#[warn(unused)]`) on by default
 
+error: the `repr(C)` attribute cannot be used on functions
+  --> src/main.rs:54:3
+   |
+54 | #[repr(C)]
+   |   ^^^^^^^
+   |
+   = help: the `repr(C)` attribute can only be applied to data types
+
 warning: unnecessary `unsafe` block
   --> src/main.rs:48:9
    |
@@ -209,131 +310,78 @@ warning: unnecessary `unsafe` block
    |
    = note: `#[warn(unused_unsafe)]` (part of `#[warn(unused)]`) on by default
 
-warning: unused variable: `multiboot_info_addr`
-  --> src/main.rs:21:31
-   |
-21 | pub extern "C" fn kernel_main(multiboot_info_addr: u64) -> ! {
-   |                               ^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_multiboot_info_addr`
-   |
-   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
-
 warning: unused variable: `location`
   --> src/main.rs:74:17
    |
 74 |     if let Some(location) = info.location() {
    |                 ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_location`
-
-warning: struct `TagHeader` is never constructed
-  --> src/main.rs:55:8
    |
-55 | struct TagHeader {
-   |        ^^^^^^^^^
-   |
-   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
 
-warning: function `multiboot_total_size` is never used
-  --> src/main.rs:66:11
-   |
-66 | unsafe fn multiboot_total_size(mb_info_addr: u64) -> u32 {
-   |           ^^^^^^^^^^^^^^^^^^^^
+warning: `las-kernel` (bin "las-kernel") generated 3 warnings
+warning: las-kernel@0.1.0: src/boot.c: In function 'kernel_entry':
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 8 bytes into a region of size 1 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 17 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 1 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 17 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 1 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 18 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 2 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 18 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 2 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 19 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 3 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 19 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 3 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 20 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 4 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 20 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 4 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 21 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 5 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 21 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 5 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:11:12: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+warning: las-kernel@0.1.0:    11 |         *p = 0;
+warning: las-kernel@0.1.0:       |         ~~~^~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 22 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0:     9 |     extern char _bss_start, _bss_end;  // ← cambia da uint8_t a char
+warning: las-kernel@0.1.0:       |                 ^~~~~~~~~~
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 6 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 22 into destination object '_bss_start' of size 1
+warning: las-kernel@0.1.0: src/boot.c:9:17: note: at offset 6 into destination object '_bss_start' of size 1
+error: could not compile `las-kernel` (bin "las-kernel") due to 1 previous error; 3 warnings emitted
 
-warning: struct `MultibootInfo` is never constructed
-  --> src/ffi.rs:15:12
-   |
-15 | pub struct MultibootInfo {
-   |            ^^^^^^^^^^^^^
-
-warning: function `vga_writec` is never used
-  --> src/ffi.rs:28:12
-   |
-28 |     pub fn vga_writec(s: *const c_char, c: *const [u8; 2]);
-   |            ^^^^^^^^^^
-
-warning: function `vga_scroll` is never used
-  --> src/ffi.rs:31:12
-   |
-31 |     pub fn vga_scroll(uod: c_char);
-   |            ^^^^^^^^^^
-
-warning: function `keyboard_getscncd` is never used
-  --> src/ffi.rs:35:12
-   |
-35 |     pub fn keyboard_getscncd() -> u8; // return 0 se non ci sono input ritorna lo scancode
-   |            ^^^^^^^^^^^^^^^^^
-
-warning: function `timer_get_ticks` is never used
-  --> src/ffi.rs:42:12
-   |
-42 |     pub fn timer_get_ticks() -> u64;
-   |            ^^^^^^^^^^^^^^^
-
-warning: function `irq_disable` is never used
-  --> src/ffi.rs:47:12
-   |
-47 |     pub fn irq_disable();
-   |            ^^^^^^^^^^^
-
-warning: static `TERMINAL` is never used
- --> src/terminal.rs:9:12
-  |
-9 | pub static TERMINAL: Mutex<Option<Terminal>> = Mutex::new(None);
-  |            ^^^^^^^^
-
-warning: function `init_global_terminal` is never used
-   --> src/terminal.rs:195:8
-    |
-195 | pub fn init_global_terminal() {
-    |        ^^^^^^^^^^^^^^^^^^^^
-
-warning: hiding a lifetime that's elided elsewhere is confusing
-  --> src/memory/heap.rs:46:17
-   |
-46 |     pub fn lock(&self) -> spin::MutexGuard<A> {
-   |                 ^^^^^     ^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
-   |                 |
-   |                 the lifetime is elided here
-   |
-   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
-   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
-help: use `'_` for type paths
-   |
-46 |     pub fn lock(&self) -> spin::MutexGuard<'_, A> {
-   |                                            +++
-
-warning: `las-kernel` (bin "las-kernel") generated 15 warnings (run `cargo fix --bin "las-kernel" -p las-kernel` to apply 3 suggestions)
-    Finished `release` profile [optimized] target(s) in 0.10s
-warning: the following packages contain code that will be rejected by a future version of Rust: core v0.0.0 (/home/jacopo/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core)
-note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
-
-=== BUILD SUCCESSFUL ===
-    Kernel binary: /home/jacopo/Documents/Programmi/las-kernel/target/x86_64-unknown-none/release/las-kernel
-
-[*] Creating bootable ISO image...
-xorriso 1.5.6 : RockRidge filesystem manipulator, libburnia project.
-
-Drive current: -outdev 'stdio:/home/jacopo/Documents/Programmi/las-kernel/out/las-kernel.iso'
-Media current: stdio file, overwriteable
-Media status : is blank
-Media summary: 0 sessions, 0 data blocks, 0 data,  300g free
-Added to ISO image: directory '/'='/home/jacopo/Documents/Programmi/las-kernel/iso_root'
-xorriso : UPDATE :      10 files added in 1 seconds
-xorriso : UPDATE :      10 files added in 1 seconds
-ISO image produced: 1894 sectors
-Written to medium : 1894 sectors at LBA 0
-Writing to 'stdio:/home/jacopo/Documents/Programmi/las-kernel/out/las-kernel.iso' completed successfully.
-
-[*] Verifying ISO contents...
-xorriso 1.5.6 : RockRidge filesystem manipulator, libburnia project.
-
-xorriso : NOTE : Loading ISO image tree from LBA 0
-xorriso : UPDATE :      11 nodes read in 1 seconds
-xorriso : NOTE : Detected El-Torito boot information which currently is set to be discarded
-Drive current: -indev '/home/jacopo/Documents/Programmi/las-kernel/out/las-kernel.iso'
-Media current: stdio file, overwriteable
-Media status : is written , is appendable
-Boot record  : El Torito , MBR protective-msdos-label cyl-align-off GPT
-Media summary: 1 session, 1894 data blocks, 3788k data,  300g free
-Volume id    : 'ISOIMAGE'
-xorriso : FAILURE : -find[ix]: unknown option '-ls'
-xorriso : aborting : -abort_on 'FAILURE' encountered 'FAILURE'
+=== BUILD FAILED ===
+    Please check the errors above.
 jacopo@j-neon:~/Documents/Programmi/las-kernel$ 
