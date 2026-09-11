@@ -127,8 +127,8 @@ build_iso() {
         -o "${ISO_FILE}" \
         "${ISO_ROOT_DIR}"
 
-    echo "[*] Verifying ISO contents..."
-    xorriso -indev "${ISO_FILE}" -find /boot -ls
+    # echo "[*] Verifying ISO contents..."
+    # xorriso -indev "${ISO_FILE}" -find /boot -ls
 
     # QUESTO MANCAVA: installa il bootloader BIOS
     if [[ -f "${LIMINE_DIR}/limine" ]]; then
