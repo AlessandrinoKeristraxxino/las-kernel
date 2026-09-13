@@ -95,16 +95,14 @@ configure_iso_root() {
     fi
 
     # Genera limine.cfg con il percorso corretto
-    cat > "${ISO_ROOT_DIR}/limine.cfg" <<'EOF'
-TIMEOUT=3
-DEFAULT_ENTRY=LasOS
+cat > "${ISO_ROOT_DIR}/limine.conf" <<'EOF'
+timeout: 3
 
-:LasOS
-PROTOCOL=limine
-KERNEL_PATH=boot():/boot/kernel
-KERNEL_CMDLINE=quiet
+/LasOS
+    protocol: limine
+    path: boot():/boot/kernel
+    cmdline: quiet
 EOF
-}
 
 build_iso() {
     local xorriso_bin
