@@ -103,6 +103,7 @@ timeout: 3
     path: boot():/boot/kernel
     cmdline: quiet
 EOF
+}
 
 build_iso() {
     local xorriso_bin
