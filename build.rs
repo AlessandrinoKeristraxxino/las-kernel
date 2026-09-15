@@ -3,6 +3,9 @@
 /// Used for the build
 /// Uitlity
 fn main() {
+    println!("cargo:rerun-if-changed=linker.ld");
+    println!("cargo:rerun-if-changed=x86_64-unknown-none.json");
+
     nasm_rs::compile_library("irq_stubs", &["src/drivers/irq_stubs.s"])
         .expect("Failed to assemble irq_stubs.s");
 
@@ -12,9 +15,11 @@ fn main() {
         .file("src/drivers/keyboard.c")
         .file("src/drivers/timer.c")
         .file("src/drivers/irq.c")
+        .file("src/memory/paging.c")
         .flag("-ffreestanding")
         .flag("-fno-stack-protector")
         .flag("-nostdlib")
+        .flag("-mgeneral-regs-only")
         .compile("kernel_c");
     
     println!("cargo:rustc-link-lib=static=irq_stubs");

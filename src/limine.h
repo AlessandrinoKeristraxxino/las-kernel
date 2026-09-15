@@ -43,6 +43,19 @@ extern "C" {
 #define LIMINE_LOADED_BASE_REVISION(VAR) ((VAR)[1])
 
 #define LIMINE_COMMON_MAGIC 0xc7b1dd30df4c8b88, 0x0a82e883a194f07b
+#define LIMINE_KERNEL_ADDRESS_REQUEST { LIMINE_COMMON_MAGIC, 0x71ba76863cc55f63, 0xb2644a48c516a487 }
+
+struct limine_kernel_address_response {
+    uint64_t revision;
+    uint64_t physical_base;
+    uint64_t virtual_base;
+};
+
+struct limine_kernel_address_request {
+    uint64_t id[4];
+    uint64_t revision;
+    struct limine_kernel_address_response *response;
+};
 
 struct limine_uuid {
     uint32_t a;
